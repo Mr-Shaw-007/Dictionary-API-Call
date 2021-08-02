@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <title>Real Time Dictionary</title>
+    <style>
+        .boxContainer{
+            margin:auto;
+            margin-top:9%;
+            position: relative;
+            width:300px;
+            border:4px solid #2980b9;
+            padding:0px 10px;
+            border-radius: 50px;
+
+
+        }
+        .elementsContainer{
+
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .Search{
+            border:none;
+            height:100%;
+            width: 100%;
+            padding:0px 5px;
+            border-radius:50px;
+            font-size:18px;
+            font-family: "Nunito";
+            color: #424242;
+            font-weight: 500;
+        }
+        .Search:focus{
+            outline:none;
+        }
+
+
+        .iconns{
+            font-size:12;
+            color:#2980b9;
+        }
+        .search-id{
+            border-radius: 2px ;
+            border:2px bisque;
+        }
+        .Head{
+            position: relative;
+            text-align: center;
+            color: burlywood;
+            font-family: sans-serif;
+            padding-top: 9%;
+            font-weight: 600;
+            font-size: 60px;
+
+        }
+
+        .Show_result{
+            position: relative;
+            text-align: center;
+            padding-top: 4%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="Head">Search Any Word To Get Meaning</h1>
+    <div class="boxContainer">
+        <table class="elementsContainer">
+            <tr>
+                <td>
+                    <input id="input" type="text" placeholder="Start Typing Words..." class="Search">
+                </td>
+                <td class="search-id">
+                    <div id="search">
+                        <i class="fas fa-search iconns"></i>
+                    </div> 
+                </td>
+            </tr>
+        </table>  
+    </div>
+    <div class="Show_result">
+    <p id="result"></p>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script>
+        $("#search").on("click",function(){
+            const apiKey = "40f606c8-15e1-461e-b656-5ab417041bcc";
+            var inputData = $("#input").val();
+            $.ajax({
+                url:"https://dictionaryapi.com/api/v3/references/collegiate/json/"+inputData+"?key="+apiKey,
+                success:function(response){
+                // console.log(response[0]["meta"]["id"]);
+                $("#result").empty();
+                for(var i=0;i<response[0]["shortdef"].length;i++){
+                    $("#result").append(response[0]["shortdef"][i]+"<br>");
+                }
+                     //console.log(response[0]["shortdef"][i]);
+                }
+            });
+        });
+    </script>
+    </div>
+</body>
+</html>
